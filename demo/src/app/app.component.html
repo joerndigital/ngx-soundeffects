@@ -1,0 +1,101 @@
+<div class="main">
+  <section>
+    <h2>Directive ngxSound</h2>
+    <div class="examples">
+      <div class="example">
+        <button
+          class="btn"
+          ngxSound
+          [soundFile]="'Waters.mp3'"
+          [soundVolume]="0.8"
+        >
+          Click
+        </button>
+        <div class="code">
+          <p>
+            <span style="color: #cc8e35">@Sound</span>('Water.mp3')<br />
+            <span style="color: #218c74">public</span>&nbsp;<span
+              style="color: #cc8e35"
+              >soundCheck()</span
+            >
+          </p>
+        </div>
+        <p>The simplest way</p>
+      </div>
+      <div class="example">
+        <button
+          class="btn"
+          ngxSound
+          [soundFile]="'Water.mp3'"
+          [soundVolume]="0.8"
+          [soundOnClick]="false"
+          [soundOnHover]="true"
+        >
+          Hover
+        </button>
+        <div class="code">
+          <p>
+            <span style="color: #cc8e35">@Sound</span>('Water.mp3')<br />
+            <span style="color: #218c74">public</span>&nbsp;<span
+              style="color: #cc8e35"
+              >soundCheck()</span
+            >
+          </p>
+        </div>
+        <p>The simplest way</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Decorator @Sound()</h2>
+    <div class="examples">
+      <div class="example">
+        <button class="btn" (click)="soundCheckDecorator1()">Click</button>
+        <div class="code">
+          <p>
+            <span style="color: #cc8e35">@Sound</span>('Water.mp3')<br />
+            <span style="color: #218c74">public</span>&nbsp;<span
+              style="color: #cc8e35"
+              >soundCheck()</span
+            >
+          </p>
+        </div>
+        <p>The simplest way</p>
+      </div>
+
+      <div class="example">
+        <button class="btn" (click)="soundCheckDecorator2()">Click</button>
+        <div class="code">
+          <p>
+            <span style="color: #cc8e35">@Sound</span>({{ "{" }}<br />
+            &nbsp;&nbsp;fileName: 'Water',<br />
+            &nbsp;&nbsp;extension: '.mp3'<br />
+            {{ "}" }})<br />
+            <span style="color: #218c74">public</span>&nbsp;<span
+              style="color: #cc8e35"
+              >soundCheck()</span
+            >
+          </p>
+        </div>
+      </div>
+
+      <div class="example">
+        <button class="btn" (click)="soundCheckDecorator3()">Click</button>
+        <div class="code">
+          <p>
+            <span style="color: #cc8e35">@Sound</span>({{ "{" }}<br />
+            &nbsp;&nbsp;start: object,<br />
+            &nbsp;&nbsp;success: object<br />
+            &nbsp;&nbsp;error: object<br />
+            {{ "}" }})<br />
+            <span style="color: #218c74">public</span>&nbsp;<span
+              style="color: #cc8e35"
+              >soundCheck()</span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
