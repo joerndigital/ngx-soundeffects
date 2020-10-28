@@ -24,12 +24,12 @@ export class NgxSoundDirective implements OnInit {
     this.sound.load();
   }
 
-  private _soundStart = true;
-  @Input() set soundStart(start: boolean) {
-    if (start) {
+  private _soundPlay = true;
+  @Input() set soundPlay(play: boolean) {
+    if (play) {
       this.sound.play();
     }
-    this._soundStart = start;
+    this._soundPlay = play;
   }
 
   private _soundPause = false;
@@ -42,7 +42,7 @@ export class NgxSoundDirective implements OnInit {
       this.sound.pause();
     }
     this._soundPause = pause;
-    this.soundStart = !pause;
+    this.soundPlay = !pause;
   }
 
   private _soundStop = false;
@@ -60,6 +60,21 @@ export class NgxSoundDirective implements OnInit {
     this._soundVolume = volume;
   }
 
+  private _soundStartTime: number;
+  get soundStartTime() {
+    return this._soundStartTime;
+  }
+
+  @Input() set soundStartTime(startTime: number) {
+    this.sound.currentTime = startTime;
+    this._soundStartTime = startTime;
+  }
+
+  private _soundEndTime: number;
+  @Input() set soundEndTime(endTime: number) {
+    this._soundEndTime = endTime;
+  }
+
   @Output() soundLoaded: EventEmitter<boolean> = new EventEmitter<boolean>(
     false
   );
@@ -69,11 +84,19 @@ export class NgxSoundDirective implements OnInit {
   @Output() soundError: EventEmitter<string | Event> = new EventEmitter<
     string | Event
   >(undefined);
+  @Output() soundOnUpdate: EventEmitter<{
+    currentTime: number;
+    progress: number;
+    duration: number;
+  }> = new EventEmitter<{
+    currentTime: number;
+    progress: number;
+    duration: number;
+  }>(undefined);
 
   @HostListener("click") onClick() {
     if (!this.sound.src) {
-      console.log("No valid sound file");
-      return;
+      throw new Error("No valid sound file.")
     }
 
     if (this.soundOnClick && !this.soundPause) {
@@ -83,8 +106,7 @@ export class NgxSoundDirective implements OnInit {
 
   @HostListener("mouseover") onHover() {
     if (!this.sound.src) {
-      console.log("No valid sound file");
-      return;
+      throw new Error("No valid sound file.")
     }
     if (this.soundOnHover && !this.soundPause) {
       this.resetAndPlay();
@@ -95,26 +117,42 @@ export class NgxSoundDirective implements OnInit {
     this.onLoaded();
     this.onEnded();
     this.onError();
+    this.onTimeUpdate();
   }
 
   private onLoaded() {
     this.sound.onloadeddata = () => {
-      console.log("LOADED");
       this.soundLoaded.emit(true);
     };
   }
 
   private onEnded() {
     this.sound.onended = () => {
-      console.log("ENDED");
       this.soundEnded.emit(true);
     };
   }
 
   private onError() {
     this.sound.onerror = (err) => {
-      console.log("ERROR");
       this.soundError.emit(err);
+    };
+  }
+
+  private onTimeUpdate() {
+    this.sound.ontimeupdate = (audioEvent: any) => {
+      const currentTime = audioEvent?.path[0]?.currentTime || 0;
+      const duration = audioEvent?.path[0]?.duration || 0;
+      const progress = currentTime / (duration || 1);
+
+      this.soundOnUpdate.emit({
+        currentTime,
+        duration,
+        progress
+      });
+
+      if (currentTime >= this.soundEndTime) {
+        this.reset();
+      }
     };
   }
 
@@ -122,9 +160,13 @@ export class NgxSoundDirective implements OnInit {
     if (this.sound.currentTime === 0) {
       this.sound.play();
     } else {
-      this.sound.pause();
-      this.sound.currentTime = 0;
-      this.sound.play();
+      this.reset();
     }
+  }
+
+  private reset() {
+    this.sound.pause();
+    this.sound.currentTime = this.soundStartTime | 0;
+    this.sound.play();
   }
 }
