@@ -1,4 +1,6 @@
 <div class="main">
+  <h1>ngx Soundeffects</h1>
+
   <section>
     <h2>Directive ngxSound</h2>
     <div class="examples">
@@ -6,43 +8,45 @@
         <button
           class="btn"
           ngxSound
-          [soundFile]="'Waters.mp3'"
+          [soundFile]="'coin.wav'"
           [soundVolume]="0.8"
         >
           Click
         </button>
-        <div class="code">
-          <p>
-            <span style="color: #cc8e35">@Sound</span>('Water.mp3')<br />
-            <span style="color: #218c74">public</span>&nbsp;<span
-              style="color: #cc8e35"
-              >soundCheck()</span
-            >
-          </p>
-        </div>
-        <p>The simplest way</p>
+        <code class="code">
+            <div>
+              <div style="color: #cc8e35"><span><</span>button</div>
+              <div><span style="color: #218c74">ngxSound</span></div>
+              <div><span style="color: #218c74">[soundFile]</span>="'coin.wav'"</div>
+              <div><span style="color: #218c74">[soundVolume]</span>="0.8"</div>
+              <div style="color: #cc8e35"><span>></span></div>
+            </div>
+          </code>
+          <p>For a button click to be accompanied by music, the directive must be included as shown on the left.</p>
       </div>
       <div class="example">
         <button
           class="btn"
           ngxSound
-          [soundFile]="'Water.mp3'"
+          [soundFile]="'coin.wav'"
           [soundVolume]="0.8"
           [soundOnClick]="false"
           [soundOnHover]="true"
         >
           Hover
         </button>
-        <div class="code">
-          <p>
-            <span style="color: #cc8e35">@Sound</span>('Water.mp3')<br />
-            <span style="color: #218c74">public</span>&nbsp;<span
-              style="color: #cc8e35"
-              >soundCheck()</span
-            >
-          </p>
-        </div>
-        <p>The simplest way</p>
+        <code class="code">
+          <div>
+            <div style="color: #cc8e35"><span><</span>button</div>
+            <div><span style="color: #218c74">ngxSound</span></div>
+            <div><span style="color: #218c74">[soundFile]</span>="'coin.wav'"</div>
+            <div><span style="color: #218c74">[soundVolume]</span>="0.8"</div>
+            <div><span style="color: #218c74">[soundOnClick]</span>="false"</div>
+            <div><span style="color: #218c74">[soundOnHover]</span>="true"</div>
+            <div style="color: #cc8e35"><span>></span></div>
+          </div>
+        </code>
+        <p>To trigger the sound on a mouse hover, [soundOnHover]="true" can be used. There are more inputs, e.g. to pause or start the sound, adjust the volume or others.</p>
       </div>
     </div>
   </section>
@@ -51,51 +55,103 @@
     <h2>Decorator @Sound()</h2>
     <div class="examples">
       <div class="example">
-        <button class="btn" (click)="soundCheckDecorator1()">Click</button>
-        <div class="code">
+        <button class="btn" (click)="soundCheckDecorator1()">As string</button>
+        <code class="code">
           <p>
-            <span style="color: #cc8e35">@Sound</span>('Water.mp3')<br />
+            <span style="color: #cc8e35">@Sound</span>('coin.wav')<br />
             <span style="color: #218c74">public</span>&nbsp;<span
               style="color: #cc8e35"
               >soundCheck()</span
             >
           </p>
-        </div>
-        <p>The simplest way</p>
+        </code>
+        <p>You can see the simplest application of the Decorator on the left. As a parameter you simply enter the file name with extension.</p>
       </div>
 
       <div class="example">
-        <button class="btn" (click)="soundCheckDecorator2()">Click</button>
-        <div class="code">
+        <button class="btn" (click)="soundCheckDecorator2()">As object</button>
+        <code class="code">
           <p>
             <span style="color: #cc8e35">@Sound</span>({{ "{" }}<br />
-            &nbsp;&nbsp;fileName: 'Water',<br />
-            &nbsp;&nbsp;extension: '.mp3'<br />
+            &nbsp;&nbsp;fileName: 'coin',<br />
+            &nbsp;&nbsp;extension: '.wav'<br />
             {{ "}" }})<br />
             <span style="color: #218c74">public</span>&nbsp;<span
               style="color: #cc8e35"
               >soundCheck()</span
             >
           </p>
-        </div>
+        </code>
+        <p>An object can also be passed as a parameter. The properties can be found further down in the section "ISoundDecorator". More properties should be added over time.</p>
       </div>
 
       <div class="example">
-        <button class="btn" (click)="soundCheckDecorator3()">Click</button>
-        <div class="code">
+        <button class="btn btn--success" (click)="soundCheckDecorator3()">Async Success</button>
+        <code class="code">
           <p>
             <span style="color: #cc8e35">@Sound</span>({{ "{" }}<br />
-            &nbsp;&nbsp;start: object,<br />
-            &nbsp;&nbsp;success: object<br />
-            &nbsp;&nbsp;error: object<br />
+            &nbsp;&nbsp;start: ISoundDecorator,<br />
+            &nbsp;&nbsp;success: ISoundDecorator<br />
+            &nbsp;&nbsp;error: ISoundDecorator<br />
             {{ "}" }})<br />
             <span style="color: #218c74">public</span>&nbsp;<span
               style="color: #cc8e35"
               >soundCheck()</span
             >
           </p>
-        </div>
+        </code>
+        <p>The whole thing also works asynchronously. Here you can pass a start, success and error sound.</p>
+      </div>
+
+      <div class="example">
+        <button class="btn btn--error" (click)="soundCheckDecorator4()">Async Error</button>
+        <code class="code">
+          <p>
+            <span style="color: #cc8e35">@Sound</span>({{ "{" }}<br />
+            &nbsp;&nbsp;start: ISoundDecorator,<br />
+            &nbsp;&nbsp;success: ISoundDecorator<br />
+            &nbsp;&nbsp;error: ISoundDecorator<br />
+            {{ "}" }})<br />
+            <span style="color: #218c74">public</span>&nbsp;<span
+              style="color: #cc8e35"
+              >soundCheck()</span
+            >
+          </p>
+        </code>
+        <p>And here is another example with error sound.</p>
       </div>
     </div>
+  </section>
+
+  <section>
+    <h2>Interfaces</h2>
+    <div class="example">
+      <code class="code">
+        <p>
+          <strong>interface ISoundDecorator</strong><br /><br />
+          fileName: string;<br />
+          extension: string;<br />
+          path?: string;<br />
+          volume?: number;<br />
+        </p>
+      </code>
+    </div>
+
+  </section>
+
+  <section class="sources">
+    <h4>Sound files are shared under the Attribution License (creative commons) and provided by:</h4>
+    <h5>Coin Sound</h5>
+    <p>
+      <a href="https://freesound.org/s/341695/">https://freesound.org/s/341695/</a> by <a href="https://freesound.org/people/ProjectsU012/">ProjectsU012</a>
+    </p>
+    <h5>Tada Sound</h5>
+    <p>
+      <a href="https://freesound.org/s/60443/">https://freesound.org/s/60443/</a> by <a href="https://freesound.org/people/jobro/">jobro</a>
+    </p>
+    <h5>Error Sound</h5>
+    <p>
+      <a href="https://freesound.org/s/142608/">https://freesound.org/s/142608/</a> by <a href="https://freesound.org/people/Autistic%20Lucario/">Autistic Lucario</a>
+    </p>
   </section>
 </div>

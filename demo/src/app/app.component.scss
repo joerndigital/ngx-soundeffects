@@ -1,20 +1,29 @@
 .main {
   display: flex;
   flex-direction: column;
-  width: 75%;
+  max-width: 900px;
   margin: 0 auto;
   background-color: #ffffff;
   padding: 32px;
 
+  h1 {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    color: #cd6133;
+    white-space: nowrap;
+  }
+
   h2 {
     margin-left: 10px;
-    color: #cd6133;
+    color: #ff793f;
   }
 }
 
 section {
   display: flex;
   flex-direction: column;
+  margin-top: 32px;
 
   .examples {
     display: flex;
@@ -24,34 +33,73 @@ section {
     row-gap: 16px;
     align-items: flex-start;
 
-  }
+    .example {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      column-gap: 16px;
+      line-height: 1.5;
 
-  .example {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 16px;
+      .btn {
+        flex: 0 0 128px;
 
-    .btn {
-      height: 48px;
-      width: 128px;
-      background-color: #34ace0;
-      border: none;
-      border-bottom: 3px solid #227093;
-      border-radius: 8px;
-      outline: none;
-      cursor: pointer;
-      font-weight: bold;
-      color: #f7f1e3;
-      font-size: 16px;
+        height: 48px;
+        background-color: #34ace0;
+        border: none;
+        border-bottom: 3px solid #227093;
+        border-radius: 8px;
+        outline: none;
+        cursor: pointer;
+        font-weight: bold;
+        color: #f7f1e3;
+        font-size: 16px;
+
+        &--success {
+          background-color: #218c74;
+          border-bottom: 3px solid #1a705e;
+        }
+
+        &--error {
+          background-color: #b33939;
+          border-bottom: 3px solid #792626;
+        }
+      }
+
+      .code {
+        flex: 0 0 256px;
+        background-color: #f7f1e3;
+        padding: 8px 16px;
+        border-radius: 8px;
+      }
+
+      p {
+        flex: 0 0 1;
+      }
     }
-  }
-
-  .code {
-    width: 200px;
-    background-color: #f7f1e3;
-    padding: 8px 16px;
-    border-radius: 8px;
   }
 }
 
+.sources {
+  margin-top: 128px;
+
+  h4 {
+    margin: 0;
+    margin-bottom: 16px;
+  }
+
+  h5 {
+    margin: 0;
+    margin-top: 8px;
+    font-weight: lighter;
+  }
+
+  a,
+  p {
+    font-size: 14px;
+  }
+
+  a {
+    color: #218c74;
+    text-decoration: none;
+  }
+}

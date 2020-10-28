@@ -11,42 +11,67 @@ import { delay, take, mergeMap } from 'rxjs/operators';
 export class AppComponent {
   title = "demo";
 
-  @Sound('Water.mp3')
+  @Sound('coin.wav')
   public soundCheckDecorator1() {
     console.log("Sound Check Decorator 1");
   }
 
   @Sound({
-    fileName: 'Water',
-    extension: '.mp3'
+    fileName: 'coin',
+    extension: '.wav'
   })
   public soundCheckDecorator2() {
     console.log("Sound Check Decorator 2");
   }
 
   public soundCheckDecorator3() {
-    this.asyncSound().subscribe();
+    this.asyncSoundWithSuccess().subscribe();
+  }
+
+  public soundCheckDecorator4() {
+    this.asyncSoundWithError().subscribe();
+  }
+
+  @Sound({
+    start: {
+      fileName: 'coin',
+      extension: '.wav'
+    },
+    success: {
+      fileName: 'tada',
+      extension: '.wav'
+    },
+    error: {
+      fileName: 'error',
+      extension: '.wav'
+    }
+  })
+  public asyncSoundWithSuccess(): Observable<boolean> {
+    return from([true]).pipe(
+      take(1),
+      delay(1000),
+    );
   }
 
 
   @Sound({
     start: {
-      fileName: 'Water',
-      extension: '.mp3'
+      fileName: 'coin',
+      extension: '.wav'
     },
     success: {
-      fileName: 'Water',
-      extension: '.mp3'
+      fileName: 'tada',
+      extension: '.wav'
     },
     error: {
       fileName: 'error',
-      extension: '.mp3'
+      extension: '.wav'
     }
   })
-  public asyncSound(): Observable<boolean> {
+  public asyncSoundWithError(): Observable<boolean> {
     return from([true]).pipe(
       take(1),
-      delay(2000),
+      delay(1000),
       mergeMap(() => throwError('Error'))
     );
   }
