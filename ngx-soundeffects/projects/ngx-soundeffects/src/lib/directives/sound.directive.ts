@@ -140,8 +140,8 @@ export class NgxSoundDirective implements OnInit {
 
   private onTimeUpdate() {
     this.sound.ontimeupdate = (audioEvent: any) => {
-      const currentTime = audioEvent?.path[0]?.currentTime || 0;
-      const duration = audioEvent?.path[0]?.duration || 0;
+      const currentTime = !!audioEvent && !!audioEvent.path[0] && audioEvent.path[0].currentTime || 0;
+      const duration = !audioEvent && !!audioEvent.path[0] && audioEvent.path[0].duration || 0;
       const progress = currentTime / (duration || 1);
 
       this.soundOnUpdate.emit({
@@ -166,7 +166,7 @@ export class NgxSoundDirective implements OnInit {
 
   private reset() {
     this.sound.pause();
-    this.sound.currentTime = this.soundStartTime | 0;
+    this.sound.currentTime = this.soundStartTime || 0;
     this.sound.play();
   }
 }
