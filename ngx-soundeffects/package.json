@@ -1,10 +1,11 @@
 {
   "name": "ngx-soundeffects",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "pack": "ng build && cd dist/ngx-soundeffects && npm pack",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -45,6 +46,6 @@
     "ts-node": "~7.0.0",
     "tsickle": "^0.37.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
+    "typescript": "3.5.3"
   }
 }
