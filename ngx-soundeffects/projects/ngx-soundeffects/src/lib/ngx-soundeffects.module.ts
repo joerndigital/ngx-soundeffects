@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
-import { NgxSoundeffectsComponent } from './ngx-soundeffects.component';
 import { NgxSoundDirective } from './directives/sound.directive';
 
 
 
 @NgModule({
-  declarations: [NgxSoundeffectsComponent, NgxSoundDirective],
+  declarations: [NgxSoundDirective],
   imports: [
   ],
-  exports: [NgxSoundeffectsComponent ]
+  exports: [NgxSoundDirective]
 })
 export class NgxSoundeffectsModule { }

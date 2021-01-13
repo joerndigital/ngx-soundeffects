@@ -1,9 +1,6 @@
 /*
  * Public API Surface of ngx-soundeffects
  */
-
-export * from './lib/ngx-soundeffects.service';
-export * from './lib/ngx-soundeffects.component';
 export * from './lib/ngx-soundeffects.module';
 export * from './lib/decorators/sound.decorator';
 export * from './lib/directives/sound.directive';
