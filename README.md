@@ -56,4 +56,4 @@ ngxSound is an attribute directive that changes the behaviour of a DOM element. 
 	@Sound(ISoundDecorator)
 
 #### Use with an asynchrone function
-	@Sound(IAsyncDecorator)
+	@Sound(IAsyncSoundDecorator)
