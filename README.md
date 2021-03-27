@@ -49,7 +49,7 @@ ngxSound is an attribute directive that changes the behaviour of a DOM element. 
 
 #### As string
 
-	@Sound('coin.wav)
+	@Sound('coin.wav')
 
 #### As object
 
